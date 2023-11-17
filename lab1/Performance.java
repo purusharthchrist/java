@@ -74,8 +74,11 @@ class Performance{
         Map<Integer, Integer> dict = new HashMap<>();
         //initialize a counter for breaking the loop
         int counter = 0;
-
         for(int i: this.mark){
+            //check to see if we've reached the limit of 10 students
+            if(counter>=10){
+                break;
+            }
             //check to see if the element is currently in the keys of the map
             if(!dict.containsKey(i)){
                 dict.put(i, 1);
@@ -88,10 +91,7 @@ class Performance{
             //update max_count if the current count is greater
             max_count = Math.max(max_count, dict.get(i));
 
-            //check and increment the counter
-            if(counter>10){
-                break;
-            }
+            //incrementing the count
             counter++;
         }
         
@@ -114,6 +114,10 @@ class Performance{
         int counter = 0;
         
         for(int i: this.mark){
+            //check to see if we've reached the limit of 10 students
+            if(counter>=10){
+                break;
+            }
             //check to see if the element is currently in the keys of the map
             if(!dict.containsKey(i)){
                 dict.put(i, 1);
@@ -128,10 +132,7 @@ class Performance{
                 max_count = dict.get(i);
             }
 
-            //check and increment the counter
-            if(counter>10){
-                break;
-            }
+            //incrementing the counter
             counter++;
         }
 
