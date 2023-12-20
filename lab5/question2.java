@@ -37,10 +37,7 @@ class CityBlockConservation extends RainySeasonConservation{
             if (blockHeights[i] > blockHeights[maxIdx])
                 maxIdx = i;
         }
-
-        System.out.println(start);
-        System.out.println(maxIdx);
-        System.out.println(end);
+        
         //array that has buildings from start to max
         int max = blockHeights[start];
         int[] allBuildingsLeft = Arrays.copyOfRange(blockHeights, start, maxIdx);
@@ -57,15 +54,17 @@ class CityBlockConservation extends RainySeasonConservation{
 
         //array that has buildings from max to end
         int[] allBuildingsRight = Arrays.copyOfRange(blockHeights, maxIdx+1, end);
-        max = allBuildingsRight[allBuildingsRight.length-1];
-        
-        //calculating the total trapped water from the right
-        for (int i=allBuildingsRight.length-2;i>=0;i--){
-            if (allBuildingsRight[i]<max){
-                totalWater += max-i;
-            }
-            else{
-                max=i;
+
+        if (allBuildingsRight.length>=2){
+            max = allBuildingsRight[allBuildingsRight.length-1];
+            //calculating the total trapped water from the right
+            for (int i=allBuildingsRight.length-2;i>=0;i--){
+                if (allBuildingsRight[i]<max){
+                    totalWater += max-allBuildingsRight[i];
+                }
+                else{
+                    max=i;
+                }
             }
         }
 
