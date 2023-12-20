@@ -37,7 +37,9 @@ class CityBlockConservation extends RainySeasonConservation{
             if (blockHeights[i] > blockHeights[maxIdx])
                 maxIdx = i;
         }
-        
+        System.out.println(start);
+        System.out.println(maxIdx);
+        System.out.println(end);
         //array that has buildings from start to max
         int max = blockHeights[start];
         int[] allBuildingsLeft = Arrays.copyOfRange(blockHeights, start, maxIdx);
@@ -63,7 +65,7 @@ class CityBlockConservation extends RainySeasonConservation{
                     totalWater += max-allBuildingsRight[i];
                 }
                 else{
-                    max=i;
+                    max=allBuildingsRight[i];
                 }
             }
         }
@@ -76,20 +78,29 @@ public class question2{
     public static void main(String[] args) {
         //take user input
         Scanner sc = new Scanner(System.in);
-        System.out.println("How many buildings are there in the city?");
-        int n_buildings = sc.nextInt();
-        sc.nextLine();
-        int[] buildings = new int[n_buildings];
-        System.out.println("Enter the heights of the buildings (in integer):");
-        for (int i=0;i<n_buildings;i++){
-            buildings[i] = sc.nextInt();
-        }
-        //calculating the water that can be conserved
-        CityBlockConservation obj = new CityBlockConservation();
-        int waterConserved = obj.calculateTrappedWater(buildings);
+        int flag;
+        do{
+            System.out.println("How many buildings are there in the city?");
+            int n_buildings = sc.nextInt();
+            sc.nextLine();
+            int[] buildings = new int[n_buildings];
+            System.out.println("Enter the heights of the buildings (in integer):");
+            for (int i=0;i<n_buildings;i++){
+                buildings[i] = sc.nextInt();
+            }
+            //calculating the water that can be conserved
+            CityBlockConservation obj = new CityBlockConservation();
+            int waterConserved = obj.calculateTrappedWater(buildings);
 
-        //display the amount of water saved
-        System.out.println("You can conserve "+waterConserved+" units of water!");
+            //display the amount of water saved
+            System.out.println("You can conserve "+waterConserved+" units of water!");
+            
+            //re-running the program
+            System.out.println("Do you want to try for a different scenario?");
+            System.out.println("1 - Yes\n2 - No");
+            flag = sc.nextInt();
+        } while(flag==1);
+        System.out.println("Byeeeee!");
         sc.close();
     }
 }
