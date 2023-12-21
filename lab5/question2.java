@@ -37,9 +37,7 @@ class CityBlockConservation extends RainySeasonConservation{
             if (blockHeights[i] > blockHeights[maxIdx])
                 maxIdx = i;
         }
-        System.out.println(start);
-        System.out.println(maxIdx);
-        System.out.println(end);
+        
         //array that has buildings from start to max
         int max = blockHeights[start];
         int[] allBuildingsLeft = Arrays.copyOfRange(blockHeights, start, maxIdx);
