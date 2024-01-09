@@ -77,6 +77,7 @@ class EnhancedOrdeFfulfillmentSystem{
 
     //creating the startProcessing method
     static void startProcessing(Order order){
+
         //updating the inventory
         updateInventory(order);
         //setting status to "processed" after the inventory is updated
@@ -84,9 +85,9 @@ class EnhancedOrdeFfulfillmentSystem{
     }
 
     //creating the waitForCompletion method
-    // static void waitForCompletion(){
+    static void waitForCompletion(){
 
-    // }
+    }
 
     //method to update the inventory
     static void updateInventory(Order order){
@@ -207,9 +208,9 @@ public class question2{
                             while(flag==true){
                                 
                                 //placing an order
-                                System.out.println("Enter the item name: ");
-                                String itemName = sc.next();
                                 sc.nextLine();
+                                System.out.println("Enter the item name: ");
+                                String itemName = sc.nextLine();
                                 System.out.println("Enter the quantity of the item you want to order: ");
                                 int quantity = sc.nextInt();
                                 orderNo+=1;
