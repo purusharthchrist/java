@@ -6,22 +6,25 @@ class Customer{
     static int customerNo;
 
     //constructor for customer registration
-    Customer(String cstName, String PhNo, String cstMail, String cstAddress){
+    Customer(String cstName, String phNo, String cstMail, String cstAddress){
         //incrementing customer number
         customerNo += 1;
         //creating a list of customer details
         ArrayList<String> cstDetails = new ArrayList<>();
         //adding the customer details to the list
         cstDetails.add(cstName);
+        cstDetails.add(phNo);
         cstDetails.add(cstMail);
-        cstDetails.add(PhNo);
         cstDetails.add(cstAddress);
         //adding the customer to the hashmap
         customers.put(customerNo, cstDetails);
+        System.out.println("Login created successfully!");
+        System.out.println("Your customer ID is "+customerNo+".");
+        System.out.println("Please remeber this for future purposes.\n");
     }
 
     //updating the customer details
-    void updateDetails(int customerNo, int oldField){
+    static void updateDetails(int customerNo, int oldField){
         //variable to store the new details
         String newDetails;
         //variable to capture the IO stream
@@ -53,11 +56,10 @@ class Customer{
                 customers.get(customerNo).set(3, newDetails);
                 break;
         }
-        sc.close();
     }
     
     //display customer details
-    void display(){
+    static void display(){
         System.out.println("\nCustomer Details\n---------------------");
         for(Object obj: customers.keySet()){
             System.out.println(obj+" : "+ customers.get(obj));
@@ -87,7 +89,7 @@ class Product{
     }
 
     //updating product details
-    void productDetails(int productId, int fieldId){
+    static void productDetails(int productId, int fieldId){
         String value;
         Scanner sc = new Scanner(System.in);
         switch (fieldId) {
@@ -110,7 +112,6 @@ class Product{
                 catalog.get(productId).set(2, value);
                 break;
         }
-        sc.close();
     }
 
     //updating the inventory
@@ -131,7 +132,7 @@ class Product{
     }
 
     //display product details
-    void displayProduct(){
+    static void displayProduct(){
         for(Object obj: catalog.keySet()){
             System.out.println(obj+" : "+catalog.get(obj));
         }
@@ -150,9 +151,11 @@ class Order{
     static int orderId;
     int flag=1;
     //hashmap to store order details
-    HashMap<Integer, HashMap<Integer, Integer>> orderDetails = new HashMap<>();
+    static HashMap<Integer, HashMap<Integer, Integer>> orderDetails = new HashMap<>();
     //hashmap to store the status of the order
     HashMap<Integer, String> orderStatus = new HashMap<>();
+    //hashmap for items ordered by customers
+    HashMap<Integer, HashSet<String>> customerItems = new HashMap<>();
     //placing an order
     Order(int custId, HashMap<Integer, Integer> items){
         //incrementing the orderId
@@ -165,21 +168,28 @@ class Order{
                 flag = 0;
                 break;
             }
-            else{
-                Product.inventory.put(obj, prevQuant-items.get(obj));
-            }
         }
         //updating the status
         if (flag==0)
-            orderStatus.put(orderId, "cancelled");
-        else
+            orderStatus.put(orderId, "cancelled because one or more items are out of stock!");
+        else{
+            for(Integer obj: items.keySet()){
+                int prevQuant = Product.inventory.get(obj);
+                //updating the inventory
+                Product.inventory.put(obj, prevQuant-items.get(obj));
+
+                //adding the item to customer items
+                customerItems.get(custId).add(Product.catalog.get(101).get(0));
+            }
+            //updating the status
             orderStatus.put(orderId, "processed");
+        }
         //adding the order details to the hashmap
         orderDetails.put(orderId, items);
     }
 
     //display order details
-    void display(){
+    static void display(){
         for(Object obj: orderDetails.keySet()){
             System.out.print(obj+" : ");
             for(Object item: orderDetails.get(obj).keySet()){
@@ -199,15 +209,136 @@ class Order{
 public class question{
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Name: ");
-        String name = sc.nextLine();
-        System.out.println("PNo.");
-        String no = sc.nextLine();
-        System.out.println("ID");
-        String id = sc.nextLine();
-        System.out.println("Add");
-        String add = sc.nextLine();
-        Customer cust = new Customer(name, no, id, add);
-        cust.updateDetails(1,1);
+        int outerFlag=1;
+        int choice;
+        while (outerFlag==1){
+            System.out.println("Logging in as...\n1. Admin\n2. Customer\n3. Exit");
+            int temp = sc.nextInt();
+            int flag=1;
+                switch (temp) {
+                    
+                    //admin functionality
+                    case 1:
+                        while(flag==1){
+                            System.out.println("\nWhat operation do you want to perform?");
+                            System.out.println("1. Add a new product\n2. Update details of an existing product\n3. View customer details\n4. View current orders\n5. Exit");
+                            choice = sc.nextInt();
+
+                            switch (choice) {
+
+                                //adding a new product
+                                case 1:
+                                    //taking user input
+                                    sc.nextLine();
+                                    System.out.println("Enter the product name: ");
+                                    String productName = sc.nextLine();
+                                    System.out.println("Enter the product price: ");
+                                    String price = String.valueOf(sc.nextInt());
+                                    System.out.println("Enter the weight of the item: ");
+                                    String itemWeight = Float.toString(sc.nextFloat());
+                                    System.out.println("Enter the quantity of the item: ");
+                                    int quantity = sc.nextInt();
+
+                                    //creating a new product
+                                    new Product(productName, price, itemWeight, quantity);
+                                    System.out.println("Product Added!");
+                                    break; 
+                                
+                                //updating the details of a product
+                                case 2:
+                                    //displaying the products
+                                    Product.displayProduct();
+                                    System.out.println("Enter the Product ID: ");
+                                    int prodId = sc.nextInt();
+                                    System.out.println("Which field do you want to update?");
+                                    System.out.println("1. Product Name\n2. Product Price\n3. Product Weight");
+                                    int fieldId = sc.nextInt();
+                                    
+                                    //updating details
+                                    Product.productDetails(prodId, fieldId);
+                                    System.out.println("Product Details updated!");
+                                    break;
+                                
+                                //viewing customer details
+                                case 3:
+                                    Customer.display();
+                                    break;
+
+                                //viewing order details
+                                case 4:
+                                    System.out.println("Current Orders");
+                                    System.out.println("--------------------");
+                                    Order.display();
+                                    break;
+
+                                //exit
+                                case 5:
+                                    flag=0;
+                                    break;
+                            }
+                    }
+                    break;
+
+                    //customer functionality
+                    case 2:
+                        while(flag==1){
+                            System.out.println("What operation do you want to perform?");
+                            System.out.println("1. Register\n2. Update details\n3. Place an order\n4. Track an order\n5. Exit");
+                            temp = sc.nextInt();
+                            switch (temp) {
+                                //customer registration
+                                case 1:
+                                    sc.nextLine();
+                                    System.out.println("Enter your name: ");
+                                    String cstName = sc.nextLine();
+                                    System.out.println("Phone Number: ");
+                                    String phNo =  String.valueOf(sc.nextLong());
+                                    sc.nextLine();
+                                    System.out.println("E-mail ID: ");
+                                    String mailId = sc.nextLine();
+                                    System.out.println("Address: ");
+                                    String add = sc.nextLine();
+                                    //storing the customer details
+                                    new Customer(cstName, phNo, mailId, add);
+                                    break;
+                                
+                                //updating customer details
+                                case 2:
+                                    sc.nextLine();
+                                    System.out.println("Enter your login number: ");
+                                    int login = sc.nextInt();
+                                    System.out.println("Which field do you want to update?");
+                                    System.out.println("1. Name\n2. Phone Number\n3. E-mail ID\n4. Address");
+                                    int field = sc.nextInt();
+                                    Customer.updateDetails(login, field);
+                                    break;
+
+                                //placing an order
+                                case 3:
+                                    
+                                    break;
+
+                                case 4:
+                                    
+                                    break;
+
+                                case 5:
+                                    flag = 0;
+                                    break;
+                            }
+                        }
+                        break;
+                    
+                    //exit
+                    case 3:
+                        outerFlag = 0;
+                        break;
+
+                    //invalid input
+                    default:
+                        System.out.println("Invalid Choice, please try again!\n");
+                        break;
+                }
+        }
     }
 }
