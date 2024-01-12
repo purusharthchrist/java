@@ -64,15 +64,18 @@ class EnhancedOrdeFfulfillmentSystem{
     static HashMap<Integer, String> orderStatus = new HashMap<>();
 
     //creating the placeOrder method
-    static void placeOrder(Order order){
-        
-        //checking if the given order can be completed or not
-        boolean goAhead = checkInventoryAvailability(order);
-        if (goAhead==true)
-            startProcessing(order);
-        else
-            //setting status to "cancelled" if there is not enough stock
-            orderStatus.put(order.orderNo, "cancelled due to shortage of supply.");
+    static void placeOrder(ArrayList<Order> order){
+
+        //implementing threading
+        order.parallelStream().forEach(x->{
+            //checking if the given order can be completed or not
+            boolean goAhead = checkInventoryAvailability(x);
+            if (goAhead==true)
+                startProcessing(x);
+            else
+                //setting status to "cancelled" if there is not enough stock
+                orderStatus.put(x.orderNo, "cancelled due to shortage of supply.");
+        });
     }
 
     //creating the startProcessing method
@@ -82,11 +85,6 @@ class EnhancedOrdeFfulfillmentSystem{
         updateInventory(order);
         //setting status to "processed" after the inventory is updated
         orderStatus.put(order.orderNo, "processed!");
-    }
-
-    //creating the waitForCompletion method
-    static void waitForCompletion(){
-
     }
 
     //method to update the inventory
@@ -205,6 +203,7 @@ public class question2{
 
                     switch (temp) {
                         case 1:
+                            ArrayList<Order> latestOrder = new ArrayList<>();
                             while(flag==true){
                                 
                                 //placing an order
@@ -214,16 +213,16 @@ public class question2{
                                 System.out.println("Enter the quantity of the item you want to order: ");
                                 int quantity = sc.nextInt();
                                 orderNo+=1;
-                                Order latestOrder = new Order(orderNo, itemName, quantity);
+                                latestOrder.add(new Order(orderNo, itemName, quantity));
                                 
-                                //placing the order
-                                EnhancedOrdeFfulfillmentSystem.placeOrder(latestOrder);
                                 System.out.println("\nDo you want to place more orders?");
                                 System.out.println("1. Yes\n2. No");
                                 temp = sc.nextInt();
                                 if(temp==2)
                                     flag=false;
                             }
+                            //placing the orders
+                            EnhancedOrdeFfulfillmentSystem.placeOrder(latestOrder);
                             break;
 
                         case 2:
