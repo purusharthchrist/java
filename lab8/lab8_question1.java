@@ -53,7 +53,7 @@ public class lab8_question1 extends javax.swing.JPanel {
             //loading the driver class
             Class.forName("com.mysql.cj.jdbc.Driver");
             //initializing the database connection
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/lab8", "root", "mysql");
+            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/lab8", "root", "");
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(lab8_question1.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -104,6 +104,10 @@ public class lab8_question1 extends javax.swing.JPanel {
         txtSearch = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         searchBtn = new javax.swing.JButton();
+        countrySearchBtn = new javax.swing.JButton();
+        countrySearch = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         updatePanel = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         updateName = new javax.swing.JTextField();
@@ -358,7 +362,7 @@ public class lab8_question1 extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("Phone Number");
 
-        txtCountry.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "    Afghanistan", "    Albania", "    Algeria", "    Andorra", "    Angola", "    Antigua and Barbuda", "    Argentina", "    Armenia", "    Australia", "    Austria", "    Azerbaijan", "    Bahamas", "    Bahrain", "    Bangladesh", "    Barbados", "    Belarus", "    Belgium", "    Belize", "    Benin", "    Bhutan", "    Bolivia", "    Bosnia and Herzegovina", "    Botswana", "    Brazil", "    Brunei", "    Bulgaria", "    Burkina Faso", "    Burundi", "    Cabo Verde", "    Cambodia", "    Cameroon", "    Canada", "    Central African Republic", "    Chad", "    Chile", "    China", "    Colombia", "    Comoros", "    Congo (Congo-Brazzaville)", "    Costa Rica", "    Croatia", "    Cuba", "    Cyprus", "    Czechia (Czech Republic)", "    Denmark", "    Djibouti", "    Dominica", "    Dominican Republic", "    East Timor (Timor-Leste)", "    Ecuador", "    Egypt", "    El Salvador", "    Equatorial Guinea", "    Eritrea", "    Estonia", "    Eswatini", "    Ethiopia", "    Fiji", "    Finland", "    France", "    Gabon", "    Gambia", "    Georgia", "    Germany", "    Ghana", "    Greece", "    Grenada", "    Guatemala", "    Guinea", "    Guinea-Bissau", "    Guyana", "    Haiti", "    Honduras", "    Hungary", "    Iceland", "    India", "    Indonesia", "    Iran", "    Iraq", "    Ireland", "    Israel", "    Italy", "    Ivory Coast", "    Jamaica", "    Japan", "    Jordan", "    Kazakhstan", "    Kenya", "    Kiribati", "    Korea, North", "    Korea, South", "    Kosovo", "    Kuwait", "    Kyrgyzstan", "    Laos", "    Latvia", "    Lebanon", "    Lesotho", "    Liberia", "    Libya", "    Liechtenstein", "    Lithuania", "    Luxembourg", "    Madagascar", "    Malawi", "    Malaysia", "    Maldives", "    Mali", "    Malta", "    Marshall Islands", "    Mauritania", "    Mauritius", "    Mexico", "    Micronesia", "    Moldova", "    Monaco", "    Mongolia", "    Montenegro", "    Morocco", "    Mozambique", "    Myanmar (Burma)", "    Namibia", "    Nauru", "    Nepal", "    Netherlands", "    New Zealand", "    Nicaragua", "    Niger", "    Nigeria", "    North Macedonia (formerly Macedonia)", "    Norway", "    Oman", "    Pakistan", "    Palau", "    Panama", "    Papua New Guinea", "    Paraguay", "    Peru", "    Philippines", "    Poland", "    Portugal", "    Qatar", "    Romania", "    Russia", "    Rwanda", "    Saint Kitts and Nevis", "    Saint Lucia", "    Saint Vincent and the Grenadines", "    Samoa", "    San Marino", "    Sao Tome and Principe", "    Saudi Arabia", "    Senegal", "    Serbia", "    Seychelles", "    Sierra Leone", "    Singapore", "    Slovakia", "    Slovenia", "    Solomon Islands", "    Somalia", "    South Africa", "    South Sudan", "    Spain", "    Sri Lanka", "    Sudan", "    Suriname", "    Sweden", "    Switzerland", "    Syria", "    Taiwan", "    Tajikistan", "    Tanzania", "    Thailand", "    Togo", "    Tonga", "    Trinidad and Tobago", "    Tunisia", "    Turkey", "    Turkmenistan", "    Tuvalu", "    Uganda", "    Ukraine", "    United Arab Emirates", "    United Kingdom", "    United States", "    Uruguay", "    Uzbekistan", "    Vanuatu", "    Vatican City", "    Venezuela", "    Vietnam", "    Yemen", "    Zambia", "    Zimbabwe", " " }));
+        txtCountry.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czechia (Czech Republic)", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor (Timor-Leste)", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Ivory Coast", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar (Burma)", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Macedonia (formerly Macedonia)", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe" }));
         txtCountry.setSelectedIndex(-1);
 
         jButton1.setText("Submit");
@@ -448,37 +452,68 @@ public class lab8_question1 extends javax.swing.JPanel {
             }
         });
 
+        countrySearchBtn.setText("Search");
+        countrySearchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                countrySearchBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel21.setText("Search (Country)");
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI Semibold", 2, 14)); // NOI18N
+        jLabel22.setText("or");
+
         javax.swing.GroupLayout viewPanelLayout = new javax.swing.GroupLayout(viewPanel);
         viewPanel.setLayout(viewPanelLayout);
         viewPanelLayout.setHorizontalGroup(
             viewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
             .addGroup(viewPanelLayout.createSequentialGroup()
-                .addGroup(viewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(viewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(viewPanelLayout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel10)
+                        .addComponent(jLabel21)
                         .addGap(18, 18, 18)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(countrySearch, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(searchBtn))
-                    .addGroup(viewPanelLayout.createSequentialGroup()
-                        .addGap(291, 291, 291)
-                        .addComponent(jLabel11)))
+                        .addComponent(countrySearchBtn))
+                    .addGroup(viewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(viewPanelLayout.createSequentialGroup()
+                            .addGap(41, 41, 41)
+                            .addComponent(jLabel10)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(searchBtn))
+                        .addGroup(viewPanelLayout.createSequentialGroup()
+                            .addGap(292, 292, 292)
+                            .addComponent(jLabel11))))
                 .addContainerGap(27, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel22)
+                .addGap(289, 289, 289))
         );
         viewPanelLayout.setVerticalGroup(
             viewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPanelLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(11, Short.MAX_VALUE)
                 .addGroup(viewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel22)
+                .addGap(10, 10, 10)
+                .addGroup(viewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(countrySearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(countrySearchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         outerPanel.add(viewPanel, "card5");
@@ -725,7 +760,7 @@ public class lab8_question1 extends javax.swing.JPanel {
             deletePanel.setVisible(false);
             statisticsPanel.setVisible(true);
             
-            pst = con.prepareCall("SELECT COUNT(Id), Country FROM attendees_info GROUP BY Country;");
+            pst = con.prepareCall("SELECT COUNT(Id), Country FROM attendee_info GROUP BY Country;");
             FetchStats(pst, statsTable);
         } catch (SQLException ex) {
             Logger.getLogger(lab8_question1.class.getName()).log(Level.SEVERE, null, ex);
@@ -742,7 +777,7 @@ public class lab8_question1 extends javax.swing.JPanel {
             updatePanel.setVisible(false);
             deletePanel.setVisible(false);
             statisticsPanel.setVisible(false);
-            pst = con.prepareStatement("SELECT * FROM attendees_info");
+            pst = con.prepareStatement("SELECT * FROM attendee_info");
             Fetch(pst, searchTable);
         } catch (SQLException ex) {
             Logger.getLogger(lab8_question1.class.getName()).log(Level.SEVERE, null, ex);
@@ -781,7 +816,7 @@ public class lab8_question1 extends javax.swing.JPanel {
             String number = txtNumber.getText();
             String country = (String) txtCountry.getSelectedItem();
             
-            pst = con.prepareStatement("INSERT INTO attendees_info (Name, Country, Contact_Number, Email) VALUES (?,?,?,?)");
+            pst = con.prepareStatement("INSERT INTO attendee_info (Name, Country, Contact_Number, Email) VALUES (?,?,?,?)");
             pst.setString(1, name);
             pst.setString(2, country);
             pst.setString(3, number);
@@ -811,7 +846,7 @@ public class lab8_question1 extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             String search = txtSearch.getText();
-            pst = con.prepareStatement("SELECT * FROM attendees_info WHERE Email=?");
+            pst = con.prepareStatement("SELECT * FROM attendee_info WHERE Email=?");
             pst.setString(1, search);
             Fetch(pst, searchTable);
         } catch (SQLException ex) {
@@ -829,7 +864,7 @@ public class lab8_question1 extends javax.swing.JPanel {
             String number = updateNumber.getText();
             String country = (String) updateCountry.getSelectedItem();
 
-            pst = con.prepareStatement("UPDATE attendees_info SET Name=?, Country=?, Contact_Number=? WHERE Email=?");
+            pst = con.prepareStatement("UPDATE attendee_info SET Name=?, Country=?, Contact_Number=? WHERE Email=?");
             pst.setString(1, name);
             pst.setString(2, country);
             pst.setString(3, number);
@@ -857,7 +892,7 @@ public class lab8_question1 extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             String delId = deleteId.getText();
-            pst = con.prepareStatement("DELETE FROM attendees_info WHERE Id=?");
+            pst = con.prepareStatement("DELETE FROM attendee_info WHERE Id=?");
             pst.setString(1, delId);
             int k = pst.executeUpdate();
             if (k==1){
@@ -865,7 +900,7 @@ public class lab8_question1 extends javax.swing.JPanel {
                 deleteId.setText("");
                 
                 //updating the table view
-                pst = con.prepareStatement("SELECT * FROM attendees_info");
+                pst = con.prepareStatement("SELECT * FROM attendee_info");
                 Fetch(pst, deleteTable);
             }
             else{
@@ -889,12 +924,25 @@ public class lab8_question1 extends javax.swing.JPanel {
             deletePanel.setVisible(true);
             statisticsPanel.setVisible(false);
             
-            pst = con.prepareStatement("SELECT * FROM attendees_info");
+            pst = con.prepareStatement("SELECT * FROM attendee_info");
             Fetch(pst, deleteTable);
         } catch (SQLException ex) {
             Logger.getLogger(lab8_question1.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_outerDeleteActionPerformed
+
+    private void countrySearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countrySearchBtnActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            String search = countrySearch.getText();
+            pst = con.prepareStatement("SELECT * FROM attendee_info WHERE Country LIKE ?");
+            pst.setString(1, '%'+search+'%');
+            Fetch(pst, searchTable);
+        } catch (SQLException ex) {
+            Logger.getLogger(lab8_question1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_countrySearchBtnActionPerformed
 
     
     //displaying the values in a table
@@ -955,6 +1003,8 @@ public class lab8_question1 extends javax.swing.JPanel {
     private javax.swing.JButton adminTab;
     private javax.swing.JPanel attendeePanel;
     private javax.swing.JButton attendeeTab;
+    private javax.swing.JTextField countrySearch;
+    private javax.swing.JButton countrySearchBtn;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JTextField deleteId;
     private javax.swing.JPanel deletePanel;
@@ -973,6 +1023,8 @@ public class lab8_question1 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
