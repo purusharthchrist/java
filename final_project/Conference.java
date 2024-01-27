@@ -53,7 +53,7 @@ public class Conference extends javax.swing.JPanel {
             //loading the driver class
             Class.forName("com.mysql.cj.jdbc.Driver");
             //initializing the database connection
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/lab8", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/project", "root", "");
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(Conference.class.getName()).log(Level.SEVERE, null, ex);
             }
